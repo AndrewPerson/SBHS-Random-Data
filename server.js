@@ -1,6 +1,10 @@
 const fastify = require("fastify");
 const server = fastify();
 
+server.register(require('fastify-cors'), { 
+    origin: "*"
+});
+
 const announcements = require("./announcements");
 const dailytimetable = require("./dailytimetable");
 const timetable = require("./timetable");
@@ -8,12 +12,18 @@ const userinfo = require("./userinfo");
 
 server.get("/", () => "Server up and running!");
 
-server.get("/api/dailynews/list.json", announcements);
-server.get("/api/timetable/daytimetable.json", dailytimetable);
-server.get("/api/timetable/timetable.json", timetable);
-server.get("/api/details/userinfo.json", userinfo);
+function wrapper(func) {
+    return (req, res) => {
+        return func();
+    };
+}
 
-server.get("/all.json", async () => {
+server.get("/api/dailynews/list.json", wrapper(announcements));
+server.get("/api/timetable/daytimetable.json", wrapper(dailytimetable));
+server.get("/api/timetable/timetable.json", wrapper(timetable));
+server.get("/api/details/userinfo.json", wrapper(userinfo));
+
+server.get("/all.json", async (req, res) => {
     var expiry = new Date();
     expiry.setHours(expiry.getHours() + 1);
 
