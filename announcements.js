@@ -38,7 +38,7 @@ async function Notice() {
         id: Id(),
         title: Title(),
         content: Content(),
-        Years: years.years,
+        years: years.years,
         dates: Dates(),
         relativeWeight: Random(1, 5),
         isMeeting: meeting.meeting,
@@ -74,7 +74,7 @@ function Years() {
 
     var staff = ShouldDo() == 0 || max < min;
 
-    if (staff) Years.push("Staff");
+    if (staff) years.push("Staff");
 
     if (min == 7 && max == 12) {
         var display = "All Years";
