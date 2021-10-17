@@ -231,6 +231,20 @@ function ClassVariations(periods, grade) {
     return result;
 }
 
+function FormattedDate() {
+    var now = new Date();
+
+    if (now.getHours() >= 15 && now.getMinutes() >= 15) {
+        now.setHours(now.getHours() + 24);
+    }
+
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var day = now.getDate();
+
+    return `${year}-${month}-${day}`;
+}
+
 const exportFunction = async () => {
     var bells = await Resource("bells");
     var grade = Grade();
@@ -241,7 +255,7 @@ const exportFunction = async () => {
 
     return {
         bells: bells,
-        date: "1970-01-01",
+        date: FormattedDate(),
         status: "OK",
         serverTimezone: "39600",
         shouldDisplayVariations: true,
