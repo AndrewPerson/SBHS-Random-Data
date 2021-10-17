@@ -1,0 +1,25 @@
+{
+    "name": "sbhs-random-data",
+    "version": "1.0.0",
+    "description": "Generates random data based on the SBHS API",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AndrewPerson/SBHS-Random-Data.git"
+    },
+    "author": "Andrew Person",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AndrewPerson/SBHS-Random-Data/issues"
+    },
+    "homepage": "https://github.com/AndrewPerson/SBHS-Random-Data#readme",
+    "dependencies": {
+        "axios": "^0.23.0",
+        "fastify": "^3.22.0",
+        "lorem-ipsum": "^2.0.4"
+    }
+}

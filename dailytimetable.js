@@ -1,0 +1,261 @@
+const { Random, Choice, ShouldDo, Letter, Room, Grade, Resource } = require("./shared");
+const LoremIpsum = require("lorem-ipsum").LoremIpsum;
+
+const nameGenerator = new LoremIpsum();
+
+function Teacher() {
+    var name = nameGenerator.generateWords(1);
+
+    name = name[0].toUpperCase() + name.substring(1);
+
+    var index1 = Random(0, name.length - 2);
+    var index2 = Random(index1 + 1, name.length - 1);
+
+    return {
+        title: `${Choice("Mr", "Ms")} ${Letter().toUpperCase()} ${name}`,
+        surname: name,
+        code: name[index1].toUpperCase() + name[index2].toUpperCase()
+    };
+}
+
+function Class(grade) {
+    var name = nameGenerator.generateWords(1);
+    name = name[0].toUpperCase() + name.substring(1);
+    
+    var suffix = ShouldDo() ? Random(1, 5) : Choice("A", "B", "C");
+
+    var code = `${name[0]}${name[Random(1, name.length - 1)]}`;
+
+    var teacher = Teacher();
+
+    return {
+        key: `${grade.year}${code}${suffix}`,
+        timetableClass: {
+            title: `${grade.year} ${name} ${suffix}`,
+            shortTitle: `${name}${suffix}`,
+            teacher: teacher.code,
+            subject: name,
+            fullTeacher: teacher.title,
+            year: grade.year
+        }
+    };
+}
+
+function Classes(grade) {
+    var year = `${Random(0, 9)}${Random(0, 9)}`;
+
+    var baseClasses = {};
+
+    baseClasses[`${grade.year}${year}`] = {
+        title: `20${year}`,
+        shortTitle: year,
+        teacher: "",
+        subject: "",
+        fullTeacher: "",
+        year: grade.year
+    };
+
+    baseClasses[`${grade.year}${grade.house}`] = {
+        title: `${grade.year}${grade.house}`,
+        shortTitle: grade.house,
+        teacher: "",
+        subject: "",
+        fullTeacher: "",
+        year: grade.year
+    };
+
+    baseClasses[`${grade.year}Y${grade.year}`] = {
+        title: `All Year ${grade.year}`,
+        shortTitle: `Y${grade.year}`,
+        teacher: "",
+        subject: "",
+        fullTeacher: "",
+        year: grade.year
+    };
+
+    var studentAdviser = Teacher();
+    baseClasses[`${grade.year}SAR`] = {
+        title: "Student Adviser",
+        shortTitle: "SAR",
+        teacher: studentAdviser.code,
+        subject: "",
+        fullTeacher: studentAdviser.title,
+        year: grade.year
+    };
+
+    var classes = {};
+
+    for (var i = 0; i < Random(9, 12); i++) {
+        var {key, timetableClass} = Class(grade);
+
+        classes[key] = timetableClass;
+    }
+
+    return {
+        baseClasses,
+        classes
+    };
+}
+
+function Routine(bells) {
+    var routine = "";
+
+    for (var bell of bells.bells) {
+        if (bell.bell.startsWith("Lunch")
+            || bell.bell.startsWith("Recess")
+            || bell.bell == "End of Day") {
+            if (routine.length > 0 && routine[routine.length - 1] != "=") routine += "=";
+        }
+        else
+            routine += bell.bell[0].toUpperCase();
+    }
+
+    return routine;
+}
+
+function Period(classes) {
+    var c = classes[Choice(...Object.keys(classes))];
+
+    return {
+        title: c.shortTitle,
+        teacher: c.teacher,
+        room: Room(),
+        fullTeacher: c.fullTeacher,
+        year: c.year
+    };
+}
+
+function Periods(classes, rollCall) {
+    return {
+        1: Period(classes),
+        2: Period(classes),
+        3: Period(classes),
+        4: Period(classes),
+        5: Period(classes),
+        R: rollCall
+    };
+}
+
+function Timetable(classes, bells, grade) {
+    var day = `${bells.day} ${bells.weekType}`;
+
+    var routine = Routine(bells);
+
+    var rollCall = {
+        title: `${grade.year < 10 ? `0${grade.year}` : grade.year}${grade.house}`,
+        teacher: `${Letter().toUpperCase()}${Letter().toUpperCase()}`,
+        room: ""
+    };
+
+    return {
+        dayname: day,
+        routine: routine,
+        rollcall: rollCall,
+        periods: Periods(classes, rollCall, grade)
+    };
+}
+
+function RoomVariations(periods, grade) {
+    var amount = Random(0, 5);
+
+    /*
+        For some weird reason, if
+        there are no room variations,
+        the SBHS API returns an empty
+        array instead of an object.
+    */
+    if (amount == 0) return [];
+
+    var result = {};
+
+    var available = ["1", "2", "3", "4", "5"];
+    for (var i = 0; i < amount; i++) {
+        var index = Random(0, available.length - 1);
+        var choice = available.splice(index, 1)[0];
+
+        result[choice] = {
+            period: choice,
+            year: grade.year,
+            title: periods[choice].title,
+            roomFrom: periods[choice].room,
+            roomTo: Room()
+        };
+    }
+
+    return result;
+}
+
+function ClassVariations(periods, grade) {
+    var amount = Random(0, 5);
+
+    /*
+        For some weird reason, if
+        there are no class variations,
+        the SBHS API returns an empty
+        array instead of an object.
+    */
+    if (amount == 0) return [];
+
+    var result = {};
+
+    var available = ["1", "2", "3", "4", "5"];
+    for (var i = 0; i < amount; i++) {
+        var index = Random(0, available.length - 1);
+        var choice = available.splice(index, 1)[0];
+
+        if (ShouldDo()) {
+            var teacher = Teacher();
+
+            result[choice] = {
+                period: choice,
+                year: grade.year,
+                title: periods[choice].title,
+                teacher: periods[choice].teacher,
+                type: "replacement",
+                casual: teacher.code,
+                casualSurname: teacher.surname
+            };
+        }
+        else
+            result[choice] = {
+                period: choice,
+                year: grade.year,
+                title: periods[choice].title,
+                teacher: periods[choice].teacher,
+                type: "nocover",
+                casual: "",
+                casualSurname: ""
+            };
+    }
+
+    return result;
+}
+
+const exportFunction = async () => {
+    var bells = await Resource("bells");
+    var grade = Grade();
+    var classes = Classes(grade);
+    var timetable = Timetable(classes.classes, bells, grade);
+    var roomVariations = RoomVariations(timetable.periods, grade);
+    var classVariations = ClassVariations(timetable.periods, grade);
+
+    return {
+        bells: bells,
+        date: "1970-01-01",
+        status: "OK",
+        serverTimezone: "39600",
+        shouldDisplayVariations: true,
+        timetable: {
+            subjects: {...classes.classes, ...classes.baseClasses},
+            timetable: timetable
+        },
+        classVariations: classVariations,
+        roomVariations: roomVariations
+    };
+}
+
+exportFunction.Grade = Grade;
+exportFunction.Classes = Classes;
+exportFunction.Timetable = Timetable;
+
+module.exports = exportFunction;
