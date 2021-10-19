@@ -1,33 +1,28 @@
-const { Resource } = require("./shared");
-const { Grade, Classes, Timetable } = require("./dailytimetable");
-
-async function Day() {
-    var bells = await Resource("bells");
-
-    var grade = Grade(bells);
-    var classes = Classes(grade);
-
-    return Timetable(classes.classes, bells, grade);
-}
+const { Resource, Grade } = require("./shared");
+const { Classes, Timetable } = require("./dailytimetable");
 
 module.exports = async () => {
+    var bells = await Resource("bells");
+    var grade = Grade();
+    var classes = Classes(grade).classes;
+
     return {
         days: {
-            "1": await Day(),
-            "2": await Day(),
-            "3": await Day(),
-            "4": await Day(),
-            "5": await Day(),
-            "6": await Day(),
-            "7": await Day(),
-            "8": await Day(),
-            "9": await Day(),
-            "10": await Day(),
-            "11": await Day(),
-            "12": await Day(),
-            "13": await Day(),
-            "14": await Day(),
-            "15": await Day()
+            "1": Timetable(classes, bells, grade),
+            "2": Timetable(classes, bells, grade),
+            "3": Timetable(classes, bells, grade),
+            "4": Timetable(classes, bells, grade),
+            "5": Timetable(classes, bells, grade),
+            "6": Timetable(classes, bells, grade),
+            "7": Timetable(classes, bells, grade),
+            "8": Timetable(classes, bells, grade),
+            "9": Timetable(classes, bells, grade),
+            "10": Timetable(classes, bells, grade),
+            "11": Timetable(classes, bells, grade),
+            "12": Timetable(classes, bells, grade),
+            "13": Timetable(classes, bells, grade),
+            "14": Timetable(classes, bells, grade),
+            "15": Timetable(classes, bells, grade)
         }
     }
 }

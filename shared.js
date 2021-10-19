@@ -41,7 +41,7 @@ function Day() {
 }
 
 function Room() {
-    return `${Random(0, 9)}${Random(0, 1)}${Random(0, 9)}`;
+    return `${Random(1, 9)}${Random(0, 1)}${Random(0, 9)}`;
 }
 
 function Grade() {

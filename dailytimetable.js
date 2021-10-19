@@ -32,7 +32,7 @@ function Class(grade) {
         key: `${grade.year}${code}${suffix}`,
         timetableClass: {
             title: `${grade.year} ${name} ${suffix}`,
-            shortTitle: `${name}${suffix}`,
+            shortTitle: `${code}${suffix}`,
             teacher: teacher.code,
             subject: name,
             fullTeacher: teacher.title,
@@ -100,7 +100,9 @@ function Classes(grade) {
 function Routine(bells) {
     var routine = "";
 
-    for (var bell of bells.bells) {
+    for (var i = 0; i < bells.bells.length - 1; i++) {
+        var bell = bells.bells[i];
+
         if (bell.bell.startsWith("Lunch")
             || bell.bell.startsWith("Recess")
             || bell.bell == "End of Day") {
@@ -156,20 +158,18 @@ function Timetable(classes, bells, grade) {
 }
 
 function RoomVariations(periods, grade) {
-    var amount = Random(0, 5);
-
     /*
         For some weird reason, if
         there are no room variations,
         the SBHS API returns an empty
         array instead of an object.
     */
-    if (amount == 0) return [];
+    if (ShouldDo()) return [];
 
     var result = {};
 
     var available = ["1", "2", "3", "4", "5"];
-    for (var i = 0; i < amount; i++) {
+    for (var i = 0; i < Random(1, 5); i++) {
         var index = Random(0, available.length - 1);
         var choice = available.splice(index, 1)[0];
 
@@ -186,20 +186,18 @@ function RoomVariations(periods, grade) {
 }
 
 function ClassVariations(periods, grade) {
-    var amount = Random(0, 5);
-
     /*
         For some weird reason, if
         there are no class variations,
         the SBHS API returns an empty
         array instead of an object.
     */
-    if (amount == 0) return [];
+    if (ShouldDo()) return [];
 
     var result = {};
 
     var available = ["1", "2", "3", "4", "5"];
-    for (var i = 0; i < amount; i++) {
+    for (var i = 0; i < Random(1, 5); i++) {
         var index = Random(0, available.length - 1);
         var choice = available.splice(index, 1)[0];
 
@@ -245,6 +243,26 @@ function FormattedDate() {
     return `${year}-${month}-${day}`;
 }
 
+function FormattedBells(bells, day, weekType) {
+    for (var bell of bells) {
+        if (bell.bell == "Roll Call") {
+            bell.bellDisplay = "Roll Call";
+            bell.bell = "R";
+        }
+        else if (bell.bell.length == 1 && /\d/.test(bell.bell)) {
+            bell.bellDisplay = `Period ${bell.bell}`;
+        }
+        else {
+            bell.bellDisplay = bell.bell;
+        }
+
+        bell.reason = "";
+        bell.reasonShort = `${day} ${weekType}`;
+    }
+
+    return bells;
+}
+
 const exportFunction = async () => {
     var bells = await Resource("bells");
     var grade = Grade();
@@ -254,7 +272,7 @@ const exportFunction = async () => {
     var classVariations = ClassVariations(timetable.periods, grade);
 
     return {
-        bells: bells,
+        bells: FormattedBells(bells.bells, bells.day, bells.weekType),
         date: FormattedDate(),
         status: "OK",
         serverTimezone: "39600",
@@ -268,7 +286,6 @@ const exportFunction = async () => {
     };
 }
 
-exportFunction.Grade = Grade;
 exportFunction.Classes = Classes;
 exportFunction.Timetable = Timetable;
 
