@@ -23,7 +23,7 @@ server.get("/api/timetable/daytimetable.json", wrapper(dailytimetable));
 server.get("/api/timetable/timetable.json", wrapper(timetable));
 server.get("/api/details/userinfo.json", wrapper(userinfo));
 
-server.get("/all.json", async (req, res) => {
+server.get("/resources", async (req, res) => {
     var expiry = new Date();
     expiry.setHours(expiry.getHours() + 1);
 
@@ -46,6 +46,10 @@ server.get("/all.json", async (req, res) => {
             termination: termination.toISOString()
         }
     };
+});
+
+server.get("/auth", async (req, res) => {
+    return {};
 });
 
 server.listen(8080, "::");
