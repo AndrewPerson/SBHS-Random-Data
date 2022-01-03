@@ -230,10 +230,11 @@ function ClassVariations(periods, grade) {
 }
 
 function FormattedDate() {
-    var now = new Date(Date.UTC());
+    var now = new Date();
     //Move timezone to Australia
     now.setHours(now.getHours() + 10);
 
+    //End of school day
     if (now.getHours() >= 15 && now.getMinutes() >= 15) {
         now.setHours(now.getHours() + 24);
     }

@@ -48,7 +48,7 @@ server.get("/resources", async (req, res) => {
     };
 });
 
-server.get("/auth", async (req, res) => {
+server.post("/auth", async (req, res) => {
     return {};
 });
 
