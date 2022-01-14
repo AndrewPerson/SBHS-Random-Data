@@ -1,6 +1,22 @@
 const { Resource, Grade } = require("./shared");
 const { Classes, Timetable } = require("./dailytimetable");
 
+function Day(classes, bells, grade) {
+    let day = Timetable(classes, bells, grade);
+
+    let keys = Object.keys(day.periods).filter(key => !isNaN(parseInt(key)));
+
+    let newPeriods = {};
+
+    for (let key of keys) {
+        newPeriods[key] = day.periods[key];
+    }
+
+    day.periods = newPeriods;
+
+    return day;
+}
+
 module.exports = async () => {
     var bells = await Resource("bells");
     var grade = Grade();
@@ -8,21 +24,21 @@ module.exports = async () => {
 
     return {
         days: {
-            "1": Timetable(classes, bells, grade),
-            "2": Timetable(classes, bells, grade),
-            "3": Timetable(classes, bells, grade),
-            "4": Timetable(classes, bells, grade),
-            "5": Timetable(classes, bells, grade),
-            "6": Timetable(classes, bells, grade),
-            "7": Timetable(classes, bells, grade),
-            "8": Timetable(classes, bells, grade),
-            "9": Timetable(classes, bells, grade),
-            "10": Timetable(classes, bells, grade),
-            "11": Timetable(classes, bells, grade),
-            "12": Timetable(classes, bells, grade),
-            "13": Timetable(classes, bells, grade),
-            "14": Timetable(classes, bells, grade),
-            "15": Timetable(classes, bells, grade)
+            "1": Day(classes, bells, grade),
+            "2": Day(classes, bells, grade),
+            "3": Day(classes, bells, grade),
+            "4": Day(classes, bells, grade),
+            "5": Day(classes, bells, grade),
+            "6": Day(classes, bells, grade),
+            "7": Day(classes, bells, grade),
+            "8": Day(classes, bells, grade),
+            "9": Day(classes, bells, grade),
+            "10": Day(classes, bells, grade),
+            "11": Day(classes, bells, grade),
+            "12": Day(classes, bells, grade),
+            "13": Day(classes, bells, grade),
+            "14": Day(classes, bells, grade),
+            "15": Day(classes, bells, grade)
         }
     }
 }

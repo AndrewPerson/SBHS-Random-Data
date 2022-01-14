@@ -134,7 +134,7 @@ async function Meeting() {
 
     var bells = await Resource("bells");
 
-    var time = Choice(bells.bells);
+    var time = Choice(...bells.bells);
     
     return {
         meeting: 1,
