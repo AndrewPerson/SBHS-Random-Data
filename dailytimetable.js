@@ -235,7 +235,7 @@ function FormattedDate() {
     now.setHours(now.getHours() + 10);
 
     //End of school day
-    if (now.getHours() >= 15 && now.getMinutes() >= 15) {
+    if ((now.getHours() == 14 && now.getMinutes() >= 15) || now.getHours() > 14) {
         now.setHours(now.getHours() + 24);
     }
 
