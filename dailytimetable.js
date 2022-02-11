@@ -24,15 +24,15 @@ function Class(grade) {
     
     var suffix = ShouldDo() ? Random(1, 5) : Choice("A", "B", "C");
 
-    var code = `${name[0]}${name[Random(1, name.length - 1)]}`;
+    var code = `${name[0]}${name.substring(1, 3)}`;
 
     var teacher = Teacher();
 
     return {
-        key: `${grade.year}${code}${suffix}`,
+        key: `${grade.year}${code} ${suffix}`,
         timetableClass: {
             title: `${grade.year} ${name} ${suffix}`,
-            shortTitle: `${code}${suffix}`,
+            shortTitle: `${code} ${suffix}`,
             teacher: teacher.code,
             subject: name,
             fullTeacher: teacher.title,
@@ -129,6 +129,7 @@ function Period(classes) {
 
 function Periods(classes, rollCall) {
     return {
+        0: Period(classes),
         1: Period(classes),
         2: Period(classes),
         3: Period(classes),
