@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Generates random data based on the SBHS API",
     "main": "server.js",
+    "bin": "server.js",
     "scripts": {
         "test": ""
     },
