@@ -13,7 +13,7 @@ const userinfo = require("./userinfo");
 server.get("/", () => "Server up and running!");
 
 function wrapper(func) {
-    return (_, _) => {
+    return (req, res) => {
         return func();
     };
 }
@@ -23,7 +23,7 @@ server.get("/api/timetable/daytimetable.json", wrapper(dailytimetable));
 server.get("/api/timetable/timetable.json", wrapper(timetable));
 server.get("/api/details/userinfo.json", wrapper(userinfo));
 
-server.get("/resources", async (_, _) => {
+server.get("/resources", async (req, res) => {
     var expiry = new Date();
     expiry.setHours(expiry.getHours() + 1);
 
@@ -48,7 +48,7 @@ server.get("/resources", async (_, _) => {
     };
 });
 
-server.post("/auth", async (_, _) => {
+server.post("/auth", async (req, res) => {
     return {};
 });
 
