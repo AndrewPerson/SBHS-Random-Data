@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "Generates random data based on the SBHS API",
     "main": "server.js",
+    "scripts": {
+        "test": ""
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/AndrewPerson/SBHS-Random-Data.git"
