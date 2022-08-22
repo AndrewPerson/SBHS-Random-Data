@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fastify = require("fastify");
 const server = fastify();
 
