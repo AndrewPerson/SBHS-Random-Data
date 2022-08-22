@@ -1,7 +1,7 @@
 const fastify = require("fastify");
 const server = fastify();
 
-server.register(require('fastify-cors'), { 
+server.register(require("@fastify/cors"), { 
     origin: "*"
 });
 
@@ -52,4 +52,6 @@ server.post("/auth", async (req, res) => {
     return {};
 });
 
-server.listen(8080, "::");
+server.listen({
+    port: 8080
+});
