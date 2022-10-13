@@ -18,9 +18,9 @@
     },
     "homepage": "https://github.com/AndrewPerson/SBHS-Random-Data#readme",
     "dependencies": {
-        "@fastify/cors": "8.1.0",
-        "axios": "0.23.0",
-        "fastify": "4.5.2",
-        "lorem-ipsum": "2.0.4"
+        "@fastify/cors": "^8.1.0",
+        "axios": "^1.1.2",
+        "fastify": "^4.8.1",
+        "lorem-ipsum": "^2.0.8"
     }
 }
