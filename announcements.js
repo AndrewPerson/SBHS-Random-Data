@@ -157,7 +157,7 @@ function Author() {
 
 export default async () => {
     return {
-        date: 0000000000,
+        date: 0,
         dayInfo: {
             date: "1970-01-01",
             term: Term().toString(),
@@ -167,8 +167,8 @@ export default async () => {
             weekType: WeekType(),
             dayNumber: Day()
         },
-        dateYesterday: 0000000000,
-        dateTomorrow: 0000000000,
+        dateYesterday: 0,
+        dateTomorrow: 0,
         notices: await Notices()
     };
 }
