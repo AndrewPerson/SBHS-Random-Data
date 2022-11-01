@@ -1,5 +1,5 @@
-const { Random, Choice, ShouldDo, Term, Week, WeekType, Day, Room, Htmlify, Nameify, Resource } = require("./shared");
-const LoremIpsum = require("lorem-ipsum").LoremIpsum;
+import { Random, Choice, ShouldDo, Term, Week, WeekType, Day, Room, Htmlify, Nameify, Resource } from "./shared";
+import { LoremIpsum } from "lorem-ipsum";
 
 const titleGenerator = new LoremIpsum({
     wordsPerSentence: {
@@ -155,7 +155,7 @@ function Author() {
     return Nameify(nameGenerator.generateWords(1));
 }
 
-module.exports = async () => {
+export default async () => {
     return {
         date: 0000000000,
         dayInfo: {

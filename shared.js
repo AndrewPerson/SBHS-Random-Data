@@ -1,4 +1,4 @@
-const axios = require("axios").default;
+import axios from "axios";
 
 function Random(min, max) {  
     return Math.round(
@@ -72,4 +72,4 @@ async function Resource(resource) {
     return null;
 }
 
-module.exports = { Random, Choice, ShouldDo, Letter, Term, Week, WeekType, Day, Room, Grade, Htmlify, Nameify, Resource };
+export { Random, Choice, ShouldDo, Letter, Term, Week, WeekType, Day, Room, Grade, Htmlify, Nameify, Resource };

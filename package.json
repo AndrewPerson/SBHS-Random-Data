@@ -22,5 +22,6 @@
         "axios": "^1.1.2",
         "fastify": "^4.8.1",
         "lorem-ipsum": "^2.0.8"
-    }
+    },
+    "type": "module"
 }

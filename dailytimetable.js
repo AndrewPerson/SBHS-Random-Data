@@ -1,5 +1,5 @@
-const { Random, Choice, ShouldDo, Letter, Room, Grade, Resource } = require("./shared");
-const LoremIpsum = require("lorem-ipsum").LoremIpsum;
+import { Random, Choice, ShouldDo, Letter, Room, Grade, Resource } from "./shared";
+import { LoremIpsum } from "lorem-ipsum";
 
 const nameGenerator = new LoremIpsum();
 
@@ -267,7 +267,7 @@ function FormattedBells(bells, day, weekType) {
     return bells;
 }
 
-const exportFunction = async () => {
+export default async () => {
     var bells = await Resource("bells");
     var grade = Grade();
     var classes = Classes(grade);
@@ -290,7 +290,4 @@ const exportFunction = async () => {
     };
 }
 
-exportFunction.Classes = Classes;
-exportFunction.Timetable = Timetable;
-
-module.exports = exportFunction;
+export { Classes, Timetable };

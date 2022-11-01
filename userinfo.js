@@ -1,5 +1,5 @@
-const { Grade, Random, Choice } = require("./shared");
-const LoremIpsum = require("lorem-ipsum").LoremIpsum;
+import { Grade, Random, Choice } from "./shared";
+import { LoremIpsum } from "lorem-ipsum";
 
 const nameGenerator = new LoremIpsum();
 
@@ -51,7 +51,7 @@ function DecEmail(name) {
     else return `${name.given}.${name.family}${number}@education.nsw.gov.au`;
 }
 
-module.exports = () => {
+export default () => {
     var studentNumber = StudentNumber();
 
     var name = Name();

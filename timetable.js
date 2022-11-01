@@ -1,5 +1,5 @@
-const { Resource, Grade } = require("./shared");
-const { Classes, Timetable } = require("./dailytimetable");
+import { Resource, Grade } from "./shared";
+import { Classes, Timetable } from "./dailytimetable";
 
 function Day(classes, bells, grade) {
     let day = Timetable(classes, bells, grade);
@@ -17,7 +17,7 @@ function Day(classes, bells, grade) {
     return day;
 }
 
-module.exports = async () => {
+export default async () => {
     var bells = await Resource("bells");
     var grade = Grade();
     var classes = Classes(grade).classes;

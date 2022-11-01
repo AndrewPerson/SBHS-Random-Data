@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 
-const fastify = require("fastify");
+import { fastify } from "fastify";
 const server = fastify();
 
-server.register(require("@fastify/cors"), { 
+import fastifyCors from "@fastify/cors";
+
+server.register(fastifyCors, { 
     origin: "*"
 });
 
-const announcements = require("./announcements");
-const dailytimetable = require("./dailytimetable");
-const timetable = require("./timetable");
-const userinfo = require("./userinfo");
+import announcements from "./announcements.js";
+import dailytimetable from "./dailytimetable.js";
+import timetable from "./timetable.js";
+import userinfo from "./userinfo";
 
 server.get("/", () => "Server up and running!");
 
