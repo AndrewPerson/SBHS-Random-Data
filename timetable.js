@@ -1,5 +1,5 @@
-import { Resource, Grade } from "./shared";
-import { Classes, Timetable } from "./dailytimetable";
+import { Resource, Grade } from "./shared.js";
+import { Classes, Timetable } from "./dailytimetable.js";
 
 function Day(classes, bells, grade) {
     let day = Timetable(classes, bells, grade);

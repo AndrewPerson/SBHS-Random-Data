@@ -12,7 +12,7 @@ server.register(fastifyCors, {
 import announcements from "./announcements.js";
 import dailytimetable from "./dailytimetable.js";
 import timetable from "./timetable.js";
-import userinfo from "./userinfo";
+import userinfo from "./userinfo.js";
 
 server.get("/", () => "Server up and running!");
 

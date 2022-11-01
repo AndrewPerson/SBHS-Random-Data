@@ -1,4 +1,4 @@
-import { Random, Choice, ShouldDo, Term, Week, WeekType, Day, Room, Htmlify, Nameify, Resource } from "./shared";
+import { Random, Choice, ShouldDo, Term, Week, WeekType, Day, Room, Htmlify, Nameify, Resource } from "./shared.js";
 import { LoremIpsum } from "lorem-ipsum";
 
 const titleGenerator = new LoremIpsum({

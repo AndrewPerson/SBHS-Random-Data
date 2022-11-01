@@ -1,4 +1,4 @@
-import { Random, Choice, ShouldDo, Letter, Room, Grade, Resource } from "./shared";
+import { Random, Choice, ShouldDo, Letter, Room, Grade, Resource } from "./shared.js";
 import { LoremIpsum } from "lorem-ipsum";
 
 const nameGenerator = new LoremIpsum();
