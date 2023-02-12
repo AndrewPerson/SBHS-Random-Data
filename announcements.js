@@ -114,8 +114,8 @@ function Years() {
 function Dates() {
     var result = [];
 
-    for (var i = 0; i < Random(1, 5); i++) {
-        result.push(`1970-01-0${i}`);
+    for (var i = 1; i <= Random(1, 5); i++) {
+        result.push(`1970-01-${i.toString().padStart(2, "0")}`);
     }
 
     return result;
