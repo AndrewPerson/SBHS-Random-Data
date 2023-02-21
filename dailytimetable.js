@@ -240,9 +240,9 @@ function FormattedDate() {
         now.setHours(now.getHours() + 24);
     }
 
-    var year = now.getFullYear();
-    var month = now.getMonth() + 1;
-    var day = now.getDate();
+    var year = now.getFullYear().toString();
+    var month = (now.getMonth() + 1).toString().padStart(2, "0");
+    var day = now.getDate().toString().padStart(2, "0");
 
     return `${year}-${month}-${day}`;
 }
