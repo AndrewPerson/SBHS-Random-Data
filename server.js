@@ -80,5 +80,5 @@ server.post("/auth", async (req, res) => {
 });
 
 server.listen({
-    port: 8080
+    port: argv.port ?? 8080
 });
