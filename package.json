@@ -21,7 +21,9 @@
         "@fastify/cors": "^8.1.0",
         "axios": "^1.1.2",
         "fastify": "^4.8.1",
-        "lorem-ipsum": "^2.0.8"
+        "lorem-ipsum": "^2.0.8",
+        "node-fetch": "^3.3.0",
+        "yargs": "^17.7.1"
     },
     "type": "module"
 }

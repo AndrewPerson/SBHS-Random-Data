@@ -1,3 +1,10 @@
+import yargs from "yargs";
+import fetch from 'node-fetch';
+import { readFile } from "fs/promises"
+
+const argv = yargs(process.argv.slice(2)).argv
+
+
 import { fastify } from "fastify";
 const server = fastify();
 
@@ -20,38 +27,56 @@ function wrapper(func) {
     };
 }
 
-server.get("/api/dailynews/list.json", wrapper(announcements));
-server.get("/api/timetable/daytimetable.json", wrapper(dailytimetable));
-server.get("/api/timetable/timetable.json", wrapper(timetable));
-server.get("/api/details/userinfo.json", wrapper(userinfo));
+function read(filePath) {
+    const file = readFile(filePath, "utf-8").then(file => JSON.parse(file));
+
+    return (req, res) => {
+        return file;
+    }
+}
+
+if (argv.announcements) server.get("/api/dailynews/list.json", read(argv.announcements))
+else server.get("/api/dailynews/list.json", wrapper(announcements));
+
+if (argv.dailytimetable) server.get("/api/timetable/daytimetable.json", read(argv.dailytimetable))
+else server.get("/api/timetable/daytimetable.json", wrapper(dailytimetable));
+
+if (argv.timetable) server.get("/api/timetable/timetable.json", read(argv.timetable))
+else server.get("/api/timetable/timetable.json", wrapper(timetable));
+
+if (argv.userinfo) server.get("/api/details/userinfo.json", read(argv.userinfo))
+else server.get("/api/details/userinfo.json", wrapper(userinfo));
 
 server.get("/resources", async (req, res) => {
-    var expiry = new Date();
-    expiry.setHours(expiry.getHours() + 1);
-
     var termination = new Date();
     //90 Days
     termination.setHours(termination.getHours() + 90 * 24);
 
     return {
         result: {
-            announcements: await announcements(),
-            dailytimetable: await dailytimetable(),
-            "next-dailytimetable": await dailytimetable(),
-            timetable: await timetable(),
-            userinfo: userinfo()
+            announcements: await fetch("http://localhost:8080/api/dailynews/list.json").then(res => res.json()),
+            dailytimetable: await fetch("http://localhost:8080/api/timetable/daytimetable.json").then(res => res.json()),
+            "next-dailytimetable": await fetch("http://localhost:8080/api/timetable/daytimetable.json").then(res => res.json()),
+            timetable: await fetch("http://localhost:8080/api/timetable/timetable.json").then(res => res.json()),
+            userinfo: await fetch("http://localhost:8080/api/details/userinfo.json").then(res => res.json())
         },
         token: {
-            access_token: "",
-            refresh_token: "",
-            expiry: expiry.toISOString(),
+            ...await fetch("http://localhost:8080/auth", { method: "POST" }).then(res => res.json()),
             termination: termination.toISOString()
         }
     };
 });
 
 server.post("/auth", async (req, res) => {
-    return {};
+    var expiry = new Date();
+    expiry.setHours(expiry.getHours() + 1);
+
+    return {
+        access_token: "",
+        refresh_token: "",
+        expiry: expiry.toISOString(),
+        scope: "all-ro"
+    };
 });
 
 server.listen({
