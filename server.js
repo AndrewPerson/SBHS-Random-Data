@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import yargs from "yargs";
 import fetch from 'node-fetch';
 import { readFile } from "fs/promises"
