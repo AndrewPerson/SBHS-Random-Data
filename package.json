@@ -24,5 +24,8 @@
         "lorem-ipsum": "^2.0.8",
         "yargs": "^17.7.1"
     },
-    "type": "module"
+    "type": "module",
+    "devDependencies": {
+        "@fastify/formbody": "^7.4.0"
+    }
 }

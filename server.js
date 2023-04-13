@@ -8,10 +8,13 @@ import { fastify } from "fastify";
 const server = fastify();
 
 import fastifyCors from "@fastify/cors";
+import fastifyFormbody from "@fastify/formbody";
 
 server.register(fastifyCors, { 
     origin: "*"
 });
+
+server.register(fastifyFormbody);
 
 import announcements from "./announcements.js";
 import dailytimetable from "./dailytimetable.js";
