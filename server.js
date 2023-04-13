@@ -4,7 +4,6 @@ import { readFile } from "fs/promises"
 
 const argv = yargs(process.argv.slice(2)).argv
 
-
 import { fastify } from "fastify";
 const server = fastify();
 
