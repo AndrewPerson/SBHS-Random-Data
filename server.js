@@ -48,6 +48,14 @@ else server.get("/api/timetable/timetable.json", wrapper(timetable));
 if (argv.userinfo) server.get("/api/details/userinfo.json", read(argv.userinfo))
 else server.get("/api/details/userinfo.json", wrapper(userinfo));
 
+server.post("/api/token", (req, res) => {
+    return {
+        access_token: "",
+        refresh_token: "",
+        expires_in: 3600,
+    }
+});
+
 server.listen({
     port: argv.port ?? 8080
 });
