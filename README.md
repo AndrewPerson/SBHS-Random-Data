@@ -19,10 +19,4 @@ It what it says on the tin. This mock server generates data that mocks the SBHS 
 
 1. You can override the random generation to simply return the contents of a file by using the `--<insert resource name here>` flag. e.g. `npx sbhs-random-data --timetable ./timetable.json` will mean any calls to `http://localhost:8080/api/timetable/timetable.json` will return the contents of `./timetable.json`
 
-2. You can change the port the application runs on using the `--port` flag. e.g. `npx sbhs-random-data --port 5555` will make the server appear on `http://localhost:5555`.
-
-## FAQ
-
-### What the heck is the `/resources` endpoint?
-
-I use this program myself to test [Paragon](https://github.com/AndrewPerson/Lit-Paragon-Client). The `/resources` endpoint is an endpoint on the Paragon servers that Paragon uses.
+2. You can change the port the application runs on using the `--port` flag. e.g. `npx sbhs-random-data --port=5555` will make the server appear on `http://localhost:5555`.
