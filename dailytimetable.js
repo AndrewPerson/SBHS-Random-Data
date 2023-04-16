@@ -152,7 +152,7 @@ function Timetable(classes, bells, grade) {
 
     return {
         dayname: day,
-        dayNumber: bells.dayNumber,
+        dayNumber: bells.dayNumber.toString(),
         routine: routine,
         rollcall: rollCall,
         periods: Periods(classes, rollCall, grade)
