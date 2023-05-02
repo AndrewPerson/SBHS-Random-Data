@@ -233,8 +233,8 @@ function ClassVariations(periods, grade) {
 
 function FormattedDate() {
     var now = new Date();
-    //Move timezone to Australia
-    now.setHours(now.getHours() + 10);
+    // Move the timezone to AEST
+    now.setHours(now.getHours() + 10 - now.getTimezoneOffset() / 60);
 
     //End of school day
     if ((now.getHours() == 14 && now.getMinutes() >= 15) || now.getHours() > 14) {
