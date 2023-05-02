@@ -234,7 +234,7 @@ function ClassVariations(periods, grade) {
 function FormattedDate() {
     var now = new Date();
     // Move the timezone to AEST
-    now.setHours(now.getHours() + 10 - now.getTimezoneOffset() / 60);
+    now.setHours(now.getHours() + -10 - now.getTimezoneOffset() / 60);
 
     //End of school day
     if ((now.getHours() == 14 && now.getMinutes() >= 15) || now.getHours() > 14) {
