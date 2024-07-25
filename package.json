@@ -2,10 +2,10 @@
     "name": "sbhs-random-data",
     "version": "1.2.9",
     "description": "Generates random data based on the SBHS API",
-    "main": "server.js",
-    "bin": "server.js",
+    "main": "server.ts",
+    "bin": "server.cjs",
     "scripts": {
-        "test": ""
+        "build": "npx esbuild server.ts --bundle --platform=node --outfile=server.cjs"
     },
     "repository": {
         "type": "git",
@@ -20,10 +20,16 @@
     "dependencies": {
         "@fastify/cors": "^8.1.0",
         "@fastify/formbody": "^7.4.0",
-        "axios": "^1.1.2",
+        "@fastify/static": "^7.0.4",
         "fastify": "^4.8.1",
         "lorem-ipsum": "^2.0.8",
+        "node-fetch": "^3.3.2",
         "yargs": "^17.7.1"
     },
-    "type": "module"
+    "type": "module",
+    "devDependencies": {
+        "@types/node": "^20.12.12",
+        "@types/yargs": "^17.0.32",
+        "esbuild": "^0.21.3"
+    }
 }

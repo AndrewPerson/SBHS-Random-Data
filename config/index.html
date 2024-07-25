@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBHS Random Data Config</title>
+
+    <base href="/config/">
+
+    <link rel="stylesheet" href="css/pico/pico.min.css" />
+    <link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+    <div class="container-fluid vert-layout" style="height: 100%; justify-content: center;">
+        <div class="container vert-layout">
+            <h1>Server Time</h1>
+            <div class="horiz-layout" role="group" style="gap: 0;">
+                <input type="datetime-local" id="server-time"/>
+                <button style="flex-shrink: 0;" id="use-current-time">Current Time</button>
+            </div>
+        </div>
+
+        <button id="submit">Submit</button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
