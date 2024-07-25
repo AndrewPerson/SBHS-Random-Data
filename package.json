@@ -1,6 +1,6 @@
 {
     "name": "sbhs-random-data",
-    "version": "1.2.9",
+    "version": "2.0.0",
     "description": "Generates random data based on the SBHS API",
     "main": "server.ts",
     "bin": "server.cjs",
